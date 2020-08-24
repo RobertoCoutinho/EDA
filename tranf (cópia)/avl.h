@@ -1,0 +1,13 @@
+struct  Node;
+Node* criarVazia();
+int getAltura(Node* node);
+int fatorBalanceamento(Node* no);
+int maior(int x, int y);
+Node* rotacaoLL(Node *raiz);
+Node* rotacaoRR(Node *raiz);
+void rotacaoLR(Node *raiz);
+void rotacaoRL(Node *raiz);
+Node* inserir(Node *raiz, int valor);
+void preOrdem(Node *raiz);
+Node* fixup_node(Node* no, int valor);
+Node* alocar(int info);
