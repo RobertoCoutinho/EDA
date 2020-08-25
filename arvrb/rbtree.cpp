@@ -3,11 +3,13 @@
 #include <bits/stdc++.h>
 //#include<stack> // para a preorder
 #include "rbtree.h"
+#include "node.h"
 using namespace std;
 
 //  Constructor
+
 RBTree::RBTree(){
-    nil = new  Node {};
+    nil = new  Node<int, char> {};
     nil ->key = 0;
     nil ->left = nil ->right = nil ->parent = nil;
     nil ->color = BLACK;
@@ -44,49 +46,8 @@ void RBTree::preorder() const{
     } 
 }
 
-void  RBTree :: left_rotate(Node *x){
-    Node *y = x->right;
-    x->right = y->left;
-    if (y->left != nil){
-        y->left ->parent = x;
-    }
-    y->parent = x->parent;
-    if (x->parent  == nil) {
-        root = y;
-    }
-    else if (x == x->parent ->left) {
-        x->parent ->left = y;
-    } 
-    else {
-        x->parent ->right = y;
-    }
 
-    y->left = x;
-    x->parent = y;
-}
-
-
-
-void  RBTree::right_rotate(Node *x){
-    Node *y = x->left;
-    x->left = y->right;
-    if (y->right  != nil){
-        y->right ->parent = x;
-    }
-    y->parent = x->parent;
-    if (x->parent  == nil) {
-        root = y;
-    } 
-    else if (x == x->parent ->right) {
-        x->parent ->right = y;
-    } 
-    else {
-        x->parent ->left = y;
-    }
-    y->right = x;
-    x->parent = y;
-}
-
+template <typename Tkey, typename Tvalue>
 void  RBTree :: insert (const  Tkey& key , const  Tvalue& v) {
     //  Allocate a new  Node
     Node *newNode = new  Node {};
@@ -165,6 +126,7 @@ void  RBTree :: RBinsert_fixUp (Node *z) {
     root ->color = BLACK; //  Guarantee  Property 2
 }
 
+template <typename  Tkey>
 void  RBTree :: remove(const  Tkey& key) {
     Node *p = root;
     while(p != nil && p->key != key) {

@@ -1,70 +1,78 @@
-#include<iostream>
-#include"rbtree.cpp"
-int main(){
-    RBTree tree = RBTree();
+#include <iostream>
+#include "rbtree.h"
+int main()
+{
+    RBTree<int, char> tree = RBTree<int, char>();
 
-    tree.insert(1, "a");
-    tree.insert(2, "b");
-    tree.insert(3, "c");
-    tree.insert(4, "d");
-    tree.insert(5, "e");
-    tree.preorder();
-    std::cout << "-----------------------------------" << std::endl;
-    tree.~RBTree();
+    int op = 0; //variavel
+    int tipoChave, tipoValor;
+    do
+    {
+        cout << "Qual o tipo da chave" << endl;
+        cout << "1 - pra inteiro" << endl;
+        cout << "2 - pra char" << endl;
+        cout << "3 - pra Float" << endl;
+        cin >>
+            cout << "Qual o tipo do valor" << endl;
+        cout << "1 - pra inteiro" << endl;
+        cout << "2 - pra char" << endl;
+        cout << "3 - pra float" << endl;
 
-
-    int op = 0;//variavel
-    Tkey chave;//criaçao de chave e valor que serão usados no menu
-    Tvalue valor;
-    Node* raiz = criarVazia(); //so para definir a raiz com nullptr
-    do{
         cout << "---------------------------" << endl;
         cout << "IMPLEMENTAÇÃO DA ARVORE AVL" << endl;
         cout << "---------------------------" << endl;
         cout << "1 - Inserir No" << endl;
         cout << "2 - Apagar todos os Nos" << endl;
         cout << "3 - Imprimir(pre-ordem)" << endl;
-        cout << "4 - Imprimir(em ordem)" << endl;
-        cout << "5 - Imprimir(pos-ordem)" << endl;
-        cout << "6 - Pesquisar chave" << endl;
-        cout << "7 - Altura da arvore" << endl;
-        cout << "8 - Sair" << endl;
+        cout << "4 - Pesquisar chave" << endl;
+        cout << "5 - Altura da arvore" << endl;
+        cout << "6 - Apagar um no" << endl;
+        cout << "7 - Sair" << endl;
         cin >> op;
-        if(op == 1){
-            cout << "insira a chave" << endl;
+        if (op == 1)
+        {
+            int chave;
+            char valor;
             cin >> chave;
-            cout << "insira o valor" << endl;
             cin >> valor;
-            raiz = inserir(raiz, chave, valor);
+            tree.insert(chave, valor);
         }
-        else if(op == 2){
-            raiz = apagar(raiz);
+        else if (op == 2)
+        {
+            tree.clear(tree.getRoot());
         }
-        else if(op == 3){
-            preOrdem(raiz);
+        else if (op == 3)
+        {
+            tree.preorder();
         }
-        else if(op == 4){
-            emOrdem(raiz);
-        }
-        else if(op == 5){
-            posOrdem(raiz);
-        }
-        else if(op == 6){
-            cout << endl << "Digite a chave a ser buscada" << endl;
+        else if (op == 4)
+        {
+            int chave;
             cin >> chave;
-            pesquisar(raiz, chave);
+            Node<int, char> *no = tree.search(chave);
+            if (no == nullptr)
+            {
+                cout << "tem nao";
+            }
+            else
+            {
+                cout << tree.getValue(no);
+            }
         }
-        else if(op == 7){
-            //ja que a altura da arvore é a altura da raiz então basta usar a função getAltura na raiz
-            cout << endl << "altura ->" << getAltura(raiz) << endl;
+        else if (op == 5)
+        {
+            cout << tree.height(tree.getRoot());
         }
-        
-        
-    }while(op!=8);
+        else if (op == 6)
+        {
+            int chave;
+            cin >> chave;
+            tree.remove(chave);
+        }
 
+    } while (op != 7);
 
-
-
+    tree.~RBTree();
 
     return 0;
 }

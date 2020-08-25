@@ -1,6 +1,5 @@
 #ifndef  NODE_H
 #define  NODE_H
-#include "item.h"
 enum  Color {RED , BLACK};
 //  Definition  of a node of the  tree
 template  <typename  Tkey , typename  Tvalue>
