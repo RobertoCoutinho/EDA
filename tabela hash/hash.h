@@ -30,7 +30,7 @@ public:
         return tamanho;
     }
 
-    //retorna a quantidaade de elementos inseridos na tabela
+    //retorna a quantidade de elementos inseridos na tabela
     int getQtdElem()
     {
         return qtd_elem;
@@ -59,19 +59,19 @@ public:
                 return true;
             }
         }
+        //Se ao sair do for ainda não tiver retornado é porque a tabela esta cheia
         return false;
     }
 
     //recebo a chave para fazer a busca, caso ache, a função printa chave, valor e retorna verdadeiro, caso não ache retorna falso
-    //busca usando sondagem linar
-    bool searchLinear(const tkey &x)
+    bool searchLinear(const tkey &x) //busca usando sondagem linar
     {
         for (int i = 0; i < tamanho; i++)
         {
             size_t slot = tableSlotLinear(x, i);
             if (tabela[slot].status == ACTIVE)
             {
-                //se o campo for ativo e a chave igual a função printa e retorna verdadeiro.
+                //se o campo for ativo e a chave igual a função, printa e retorna verdadeiro.
                 if (x == tabela[slot].key)
                 {
                     cout << "chave: " << tabela[slot].key << " valor: " << tabela[slot].value << endl;
@@ -79,20 +79,19 @@ public:
                 }
             }
             //se achar um campo vazio retorna falso,
-            //no caso de um campo estar deletado o for continua, pois a chave podera esta mais a frente
+            //no caso de um campo estar deletado o for continua, pois a chave podera estar mais a frente
             else if (tabela[slot].status == EMPTY)
             {
                 return false;
             }
         }
-        //se for acabar retorna falso pois a chave não esta na tabela
+        //se o for acabar retorna falso pois a chave não esta na tabela
         return false;
     }
 
     //função muito parecida com a busca, so que ao achar a chave o campo status recebe DELETED
-    //Se a função achar a chave ela retorna verdadeira caso contrario retona falso
-    //remove usando sondagem linear
-    bool removeLinear(const tkey &x)
+    //Se a função achar a chave ela retorna verdadeira caso contrario retorna falso
+    bool removeLinear(const tkey &x) //remove usando sondagem linear
     {
         for (int i = 0; i < tamanho; i++)
         {
@@ -122,7 +121,7 @@ public:
         return ((hf(x) % tamanho) + num_tentativa * (1 + (hf(x) % (tamanho - 1)))) % tamanho;
     }
 
-    //insert usasndo sondagem duplohash
+    //insert usasndo sondagem duplohash, basicamente a mesma função insert linear, so muda que chama a função tableSlotDuploHash
     bool insertDuploHash(const tkey &x, const tvalue &v)
     {
         for (int i = 0; i < tamanho; i++)
@@ -141,8 +140,7 @@ public:
         return false;
     }
 
-    //recebo a chave para fazer a busca, caso ache, a função printa chave, valor e retorna verdadeiro, caso não ache retorna falso
-    //busca usando sondagem DuploHash
+    //busca usando sondagem DuploHash, basicamente a mesma função search linear, so muda que chama a função tableSlotDuploHash
     bool searchDuploHash(const tkey &x)
     {
         for (int i = 0; i < tamanho; i++)
@@ -150,7 +148,7 @@ public:
             size_t slot = tableSlotDuploHash(x, i);
             if (tabela[slot].status == ACTIVE)
             {
-                //se o campo for ativo e a chave igual a função printa e retorna verdadeiro.
+                //se o campo for ativo e a chave igual, a função printa e retorna verdadeiro.
                 if (x == tabela[slot].key)
                 {
                     cout << "chave: " << tabela[slot].key << " valor: " << tabela[slot].value << endl;
@@ -158,7 +156,7 @@ public:
                 }
             }
             //se achar um campo vazio retorna falso,
-            //no caso de um campo estar deletado o for continua, pois a chave podera esta mais a frente
+            //no caso de um campo estar deletado o for continua, pois a chave podera estar mais a frente
             else if (tabela[slot].status == EMPTY)
             {
                 return false;
@@ -170,8 +168,7 @@ public:
 
     //função muito parecida com a busca, so que ao achar a chave o campo status recebe DELETED
     //Se a função achar a chave ela retorna verdadeira caso contrario retona falso
-    //remove usando sondagem DuploHash
-    bool removeDuploHash(const tkey &x)
+    bool removeDuploHash(const tkey &x) //remove usando sondagem DuploHash
     {
         for (int i = 0; i < tamanho; i++)
         {
@@ -194,6 +191,7 @@ public:
         return false;
     }
 
+    //função que printa toda a tabela, da primeira a ultima posição
     void print()
     {
         for (int i = 0; i < tamanho; i++)

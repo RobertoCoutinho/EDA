@@ -4,7 +4,9 @@ enum EntryType
     EMPTY,
     DELETED
 };
+
 template <typename tkey, typename tvalue>
+
 class Node
 {
 public:
